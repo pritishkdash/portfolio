@@ -35,23 +35,21 @@ export default function Projects() {
           ))}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))', gap: '24px' }}>
           {filtered.map((project: any) => {
             const demoUrl = getDemoUrl(project)
             return (
               <div key={project.id} style={{ background: '#1a1a24', border: '1px solid #2a2a3a', borderRadius: '16px', padding: '24px' }}>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '12px', color: 'white' }}>{project.title}</h3>
-                <p style={{ color: '#a0a0b0', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '16px' }}>{project.description}</p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '16px' }}>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'white', marginBottom: '12px' }}>{project.title}</h3>
+                <p style={{ color: '#a0a0b0', fontSize: '0.95rem', lineHeight: 1.7, marginBottom: '20px' }}>{project.description}</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '20px' }}>
                   {(project.techStack || []).map((tech: string) => (
-                    <span key={tech} style={{ padding: '4px 10px', background: '#12121a', borderRadius: '4px', fontSize: '0.75rem', color: '#a0a0b0' }}>{tech}</span>
+                    <span key={tech} style={{ padding: '6px 12px', background: '#12121a', borderRadius: '6px', fontSize: '0.8rem', color: '#a0a0b0', border: '1px solid #2a2a3a' }}>{tech}</span>
                   ))}
                 </div>
-                <div style={{ display: 'flex', gap: '12px', paddingTop: '16px', borderTop: '1px solid #2a2a3a' }}>
-                  {demoUrl && (
-                    <a href={demoUrl} style={{ padding: '8px 16px', background: '#6366f1', color: 'white', borderRadius: '8px', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none' }}>Try Demo</a>
-                  )}
-                </div>
+                {demoUrl && (
+                  <a href={demoUrl} style={{ padding: '10px 20px', background: '#6366f1', color: 'white', borderRadius: '8px', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none', display: 'inline-block' }}>Try Demo</a>
+                )}
               </div>
             )
           })}
