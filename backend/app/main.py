@@ -60,9 +60,6 @@ def seed_data():
     
     db.close()
     return {"message": "Projects already exist"}
-    
-    db.close()
-    return {"message": "Projects already exist"}
 
 if __name__ == "__main__":
     import uvicorn
