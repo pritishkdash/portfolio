@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 from app.routers import projects_router, contact_router, analytics_router, resume_router
 from app.database import engine, Base
@@ -7,14 +8,11 @@ from app.database import engine, Base
 app = FastAPI(
     title="Pritish Portfolio API",
     version="1.0.0",
-    openapi_url="/api/openapi.json",
-    docs_url="/docs",
-    redoc_url="/redoc"
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173", "http://127.0.0.1:3000", "*"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -28,21 +26,11 @@ app.include_router(resume_router, prefix="/api")
 Base.metadata.create_all(bind=engine)
 
 @app.get("/")
-def root():
-    return {"name": "Pritish Portfolio API", "version": "1.0.0", "status": "running"}
-
 @app.get("/health")
-def health_check():
+@app.get("/healthz")
+@app.get("/ready")
+def root():
     return {"status": "healthy"}
-
-@app.get("/api/projects-test")
-def test_projects():
-    from app.database import SessionLocal
-    from app.models.project import Project
-    db = SessionLocal()
-    projects = db.query(Project).all()
-    db.close()
-    return {"count": len(projects), "projects": [{"id": p.id, "title": p.title} for p in projects]}
 
 @app.get("/api/seed")
 def seed_data():
