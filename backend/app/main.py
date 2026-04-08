@@ -35,14 +35,20 @@ def root():
     return {"status": "healthy"}
 
 @app.get("/api/seed")
-def seed_data():
+def seed_data(force: bool = False):
     from app.database import SessionLocal
     from app.models.project import Project
     import uuid
     
     db = SessionLocal()
     
-    if db.query(Project).count() == 0:
+    if force:
+        db.query(Project).delete()
+        has_projects = False
+    else:
+        has_projects = db.query(Project).count() > 0
+    
+    if not has_projects:
         projects = [
             Project(id=str(uuid.uuid4()), title="LLM-Powered Document Intelligence (RAG)", slug="rag-document-intelligence", description="Retrieval-Augmented Generation system enabling intelligent document querying across large PDF datasets. Implemented semantic search using embedding models and FAISS vector database for contextual responses. Built with OpenAI API, LangChain, and FastAPI for production-grade performance. Optimized prompt engineering strategies reduced hallucination by 60% while improving response accuracy. Deployed as Docker containers with CI/CD pipelines for automated testing and seamless updates.", tech_stack="Python,OpenAI,LangChain,FAISS,FastAPI,Docker", category="nlp", demo_type="text", github_url="https://github.com/pritishkdash", featured=True, order_idx=1),
             Project(id=str(uuid.uuid4()), title="Video Analytics for Object Detection", slug="video-object-detection", description="Scalable real-time video analytics pipeline leveraging YOLOv8 for state-of-the-art object detection and tracking. Implemented TensorFlow models optimized for edge deployment with OpenCV preprocessing pipelines. Integrated CI/CD workflows with automated testing reducing deployment time by 40%. Achieved 95% detection accuracy on custom datasets with support for 30+ object classes. Features include motion tracking, anomaly detection, and real-time alerting system.", tech_stack="Python,YOLOv8,TensorFlow,OpenCV,Docker,CICD", category="cv", demo_type="image", github_url="https://github.com/pritishkdash", featured=True, order_idx=2),
@@ -56,10 +62,10 @@ def seed_data():
         db.add_all(projects)
         db.commit()
         db.close()
-        return {"message": f"Seeded {len(projects)} projects!"}
+        return {"message": f"Seeded {len(projects)} projects with detailed descriptions!"}
     
     db.close()
-    return {"message": "Projects already exist"}
+    return {"message": "Projects already exist. Use ?force=true to reseed."}
 
 if __name__ == "__main__":
     import uvicorn
