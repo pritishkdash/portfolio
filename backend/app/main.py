@@ -44,7 +44,7 @@ def test_projects():
     db.close()
     return {"count": len(projects), "projects": [{"id": p.id, "title": p.title} for p in projects]}
 
-@app.post("/api/seed")
+@app.get("/api/seed")
 def seed_data():
     from app.database import SessionLocal
     from app.models.project import Project
