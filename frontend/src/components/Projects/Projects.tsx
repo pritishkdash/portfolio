@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { api } from '../../services/api'
 
 export default function Projects() {
@@ -48,7 +49,7 @@ export default function Projects() {
                   ))}
                 </div>
                 {demoUrl && (
-                  <a href={demoUrl} style={{ padding: '10px 20px', background: '#6366f1', color: 'white', borderRadius: '8px', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none', display: 'inline-block' }}>Try Demo</a>
+                  <Link to={demoUrl} style={{ padding: '10px 20px', background: '#6366f1', color: 'white', borderRadius: '8px', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none', display: 'inline-block' }}>Try Demo</Link>
                 )}
               </div>
             )
