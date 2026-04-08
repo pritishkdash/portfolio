@@ -4,6 +4,7 @@ from sqlalchemy.orm import sessionmaker
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+db_path = os.path.join(BASE_DIR, "portfolio.db")
 
 USE_POSTGRES = os.getenv("USE_POSTGRES", "false").lower() == "true"
 
@@ -16,7 +17,6 @@ if USE_POSTGRES:
     DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
     engine = create_engine(DATABASE_URL, pool_pre_ping=True)
 else:
-    db_path = os.path.join(BASE_DIR, "portfolio.db")
     engine = create_engine(
         f"sqlite:///{db_path}",
         connect_args={"check_same_thread": False}
