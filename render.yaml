@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: portfolio-backend
+    env: docker
+    dockerfilePath: ./Dockerfile
+    port: 8000
+    plan: free
+    
+  - type: web
+    name: portfolio-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/dist
+    routes:
+      - path: /api
+        destination:
+          type: service
+          name: portfolio-backend

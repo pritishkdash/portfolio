@@ -1,0 +1,147 @@
+.timeline {
+  background: var(--bg-primary);
+}
+
+.timelineContainer {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+  transform: translateX(-50%);
+}
+
+.timelineItem {
+  position: relative;
+  width: 50%;
+  padding: 0 40px 40px;
+}
+
+.timelineItem.left {
+  left: 0;
+  text-align: right;
+}
+
+.timelineItem.right {
+  left: 50%;
+  text-align: left;
+}
+
+.dot {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: var(--accent);
+  border-radius: 50%;
+  top: 8px;
+  border: 3px solid var(--bg-primary);
+}
+
+.timelineItem.left .dot {
+  right: -8px;
+}
+
+.timelineItem.right .dot {
+  left: -8px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.date {
+  font-size: 0.875rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.location {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.company {
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.description {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.techStack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+.timelineItem.left .techStack {
+  justify-content: flex-end;
+}
+
+.tech {
+  padding: 4px 10px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .line {
+    left: 20px;
+  }
+
+  .timelineItem {
+    width: 100%;
+    left: 0;
+    padding-left: 50px;
+    padding-right: 0;
+    text-align: left;
+  }
+
+  .dot {
+    left: 12px !important;
+    right: auto !important;
+  }
+
+  .techStack {
+    justify-content: flex-start !important;
+  }
+}
